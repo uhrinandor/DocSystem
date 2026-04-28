@@ -7,6 +7,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		compose.yaml = compose.yaml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{A6E9B73A-3E77-4D7C-9E14-7BB0F7764C19}"
+	ProjectSection(SolutionItems) = preProject
+		web\.editorconfig = web\.editorconfig
+		web\.gitignore = web\.gitignore
+		web\angular.json = web\angular.json
+		web\package.json = web\package.json
+		web\README.md = web\README.md
+		web\src\app\app.config.ts = web\src\app\app.config.ts
+		web\src\app\app.html = web\src\app\app.html
+		web\src\app\app.routes.ts = web\src\app\app.routes.ts
+		web\src\app\app.ts = web\src\app\app.ts
+		web\src\index.html = web\src\index.html
+		web\src\main.ts = web\src\main.ts
+		web\src\styles.css = web\src\styles.css
+		web\tsconfig.app.json = web\tsconfig.app.json
+		web\tsconfig.json = web\tsconfig.json
+		web\tsconfig.spec.json = web\tsconfig.spec.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

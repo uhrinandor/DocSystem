@@ -10,6 +10,16 @@
     environment:
       Seq__ServerUrl: http://seq:5341
 
+  web:
+    image: web
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    depends_on:
+      - docsystem
+    ports:
+      - "4200:80"
+
   db:
     image: postgres:16
     container_name: postgres-db
