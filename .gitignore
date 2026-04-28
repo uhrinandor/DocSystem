@@ -6,6 +6,10 @@ out/
 # Handle accidentally-created backslash paths from tooling on Unix
 bin\\
 obj\\
+bin\\Debug/
+obj\\Debug/
+**/bin\\Debug/
+**/obj\\Debug/
 
 # User-specific files
 *.user
