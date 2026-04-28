@@ -10,8 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+var isBuildTimeOpenApiGeneration = Assembly.GetEntryAssembly()?.GetName().Name == "GetDocument.Insider";
 
 builder.Host.UseSerilog((context, _, loggerConfiguration) =>
 {
@@ -61,6 +63,22 @@ builder.Services
             ClockSkew = TimeSpan.Zero
         };
     });
+var allowedCorsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("WebApp", policy =>
+    {
+        if (allowedCorsOrigins.Length == 0)
+        {
+            return;
+        }
+
+        policy
+            .WithOrigins(allowedCorsOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddAuthorization();
 builder.Services.AddControllers(options =>
 {
@@ -70,8 +88,9 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+if (!isBuildTimeOpenApiGeneration)
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.MigrateAsync();
 }
@@ -108,6 +127,8 @@ app.UseExceptionHandler(exceptionHandlerApp =>
 });
 
 app.UseHttpsRedirection();
+
+app.UseCors("WebApp");
 
 app.UseAuthentication();
 app.UseAuthorization();

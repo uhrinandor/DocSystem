@@ -10,7 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{A6E9B73A-3E77-4D7C-9E14-7BB0F7764C19}"
 	ProjectSection(SolutionItems) = preProject
 		web\.editorconfig = web\.editorconfig
-		web\.gitignore = web\.gitignore
 		web\angular.json = web\angular.json
 		web\package.json = web\package.json
 		web\README.md = web\README.md

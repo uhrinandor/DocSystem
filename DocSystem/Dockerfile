@@ -11,7 +11,7 @@ COPY ["DocSystem/DocSystem.csproj", "DocSystem/"]
 RUN dotnet restore "DocSystem/DocSystem.csproj"
 COPY . .
 WORKDIR "/src/DocSystem"
-RUN dotnet build "./DocSystem.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./DocSystem.csproj" -c $BUILD_CONFIGURATION
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release

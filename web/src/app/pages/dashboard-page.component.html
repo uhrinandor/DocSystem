@@ -1,0 +1,52 @@
+<main class="dashboard-shell">
+  <section class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <p class="eyebrow">DocSystem</p>
+        <h1>Iratkezelés</h1>
+        <p class="subtitle">Védett belső felület navigációs vázzal.</p>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Fő navigáció">
+        @for (item of navigationItems; track item.label) {
+          <a
+            class="nav-item"
+            [routerLink]="item.route"
+            routerLinkActive="nav-item-active"
+            [routerLinkActiveOptions]="{ exact: item.route === '/iratok' }"
+          >
+            <span class="nav-item-label">{{ item.label }}</span>
+          </a>
+        }
+      </nav>
+    </aside>
+
+    <section class="workspace">
+      <header class="workspace-header">
+        <div class="workspace-copy">
+          <p class="workspace-kicker">Kezdőlap</p>
+          <h2>Üdv újra</h2>
+          <p class="workspace-text">
+            A bal oldali sávban előkészítettem a fő navigációt a következő modulokhoz.
+          </p>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-copy">
+            <p class="profile-label">Bejelentkezve</p>
+            <p class="profile-name">
+              {{ currentUser()?.userName || currentUser()?.name || 'ismeretlen felhasználó' }}
+            </p>
+            <p class="profile-meta">Session lejárat: {{ expiresAt() || 'nincs megadva' }}</p>
+          </div>
+
+          <button type="button" class="logout-button" (click)="logout()">Kijelentkezés</button>
+        </div>
+      </header>
+
+      <section class="workspace-panel">
+        <router-outlet />
+      </section>
+    </section>
+  </section>
+</main>

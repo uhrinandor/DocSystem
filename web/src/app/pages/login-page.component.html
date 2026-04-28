@@ -1,0 +1,46 @@
+<main class="login-shell">
+  <section class="login-panel">
+    <div class="login-intro">
+      <p class="eyebrow">DocSystem</p>
+      <h1>Bejelentkezes</h1>
+    </div>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+      <label class="field">
+        <span>Felhasznalonev</span>
+        <input
+          type="text"
+          formControlName="username"
+          autocomplete="username"
+          placeholder="pl. admin"
+        />
+      </label>
+
+      @if (loginForm.controls.username.invalid && loginForm.controls.username.touched) {
+        <p class="field-error">A felhasznalonev megadasa kotelezo.</p>
+      }
+
+      <label class="field">
+        <span>Jelszo</span>
+        <input
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="Add meg a jelszavad"
+        />
+      </label>
+
+      @if (loginForm.controls.password.invalid && loginForm.controls.password.touched) {
+        <p class="field-error">A jelszo megadasa kotelezo.</p>
+      }
+
+      <button type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Bejelentkezes folyamatban...' : 'Login' }}
+      </button>
+    </form>
+
+    @if (errorMessage()) {
+      <p class="feedback feedback-error">{{ errorMessage() }}</p>
+    }
+  </section>
+</main>
