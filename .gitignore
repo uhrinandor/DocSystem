@@ -1,0 +1,44 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# Handle accidentally-created backslash paths from tooling on Unix
+bin\\
+obj\\
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDEs
+.idea/
+.vs/
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Test and coverage artifacts
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# OS files
+.DS_Store
+Thumbs.db

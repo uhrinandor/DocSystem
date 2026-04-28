@@ -1,0 +1,41 @@
+﻿services:
+  docsystem:
+    image: docsystem
+    build:
+      context: .
+      dockerfile: DocSystem/Dockerfile
+    depends_on:
+      - db
+      - seq
+    environment:
+      Seq__ServerUrl: http://seq:5341
+
+  db:
+    image: postgres:16
+    container_name: postgres-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: doc
+      POSTGRES_PASSWORD: doc
+      POSTGRES_DB: doc
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_ADMINPASSWORD: ${SEQ_ADMIN_PASSWORD}
+    ports:
+      - "8081:80"
+      - "5341:5341"
+    volumes:
+      - seq_data:/data
+
+volumes:
+  postgres_data:
+  seq_data:
