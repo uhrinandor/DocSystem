@@ -24,7 +24,7 @@ public class ContractMapper(IktatoszamFormatter iktatoszamFormatter)
             Kod = iktatokonyv.Kod,
             Evszam = iktatokonyv.Evszam,
             Iktatoszamok = iktatokonyv.Iktatoszamok
-                .Select(MapIktatoszamReference)
+                .Select(x => MapIktatoszamReference(x, iktatokonyv))
                 .ToList()
         };
     }
@@ -44,6 +44,11 @@ public class ContractMapper(IktatoszamFormatter iktatoszamFormatter)
 
     public IktatoszamReferenceContract MapIktatoszamReference(Iktatoszam iktatoszam)
     {
+        return MapIktatoszamReference(iktatoszam, iktatoszam.Iktatokonyv);
+    }
+
+    private IktatoszamReferenceContract MapIktatoszamReference(Iktatoszam iktatoszam, Iktatokonyv iktatokonyv)
+    {
         return new IktatoszamReferenceContract
         {
             Id = iktatoszam.Id,
@@ -52,8 +57,13 @@ public class ContractMapper(IktatoszamFormatter iktatoszamFormatter)
             Foszam = iktatoszam.Foszam,
             Alszam = iktatoszam.Alszam,
             Valid = iktatoszam.Valid,
-            SzovegesIktatoszam = iktatoszamFormatter.Format(iktatoszam),
-            Iktatokonyv = MapIktatokonyvReference(iktatoszam.Iktatokonyv)
+            SzovegesIktatoszam = iktatoszamFormatter.Format(new Models.Iktatoszam
+            {
+                Foszam = iktatoszam.Foszam,
+                Alszam = iktatoszam.Alszam,
+                Iktatokonyv = iktatokonyv
+            }),
+            Iktatokonyv = MapIktatokonyvReference(iktatokonyv)
         };
     }
 

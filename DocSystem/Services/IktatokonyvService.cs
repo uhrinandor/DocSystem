@@ -44,7 +44,6 @@ public class IktatokonyvService(
         return await db.Iktatokonyvek
             .AsNoTracking()
             .Include(x => x.Iktatoszamok)
-            .ThenInclude(x => x.Iktatokonyv)
             .ToListAsync(ct);
     }
 
@@ -53,7 +52,6 @@ public class IktatokonyvService(
         return await db.Iktatokonyvek
             .AsNoTracking()
             .Include(x => x.Iktatoszamok)
-            .ThenInclude(x => x.Iktatokonyv)
             .SingleOrDefaultAsync(x => x.Id == id, ct);
     }
 }

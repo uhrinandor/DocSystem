@@ -13,6 +13,15 @@ public class UserService(
     IPasswordHasher<User> passwordHasher,
     ILogger<UserService> logger)
 {
+    public async Task<List<User>> GetAllAsync(CancellationToken ct = default)
+    {
+        return await db.Users
+            .AsNoTracking()
+            .OrderBy(x => x.Name)
+            .ThenBy(x => x.UserName)
+            .ToListAsync(ct);
+    }
+
     public async Task<User> CreateAsync(CreateUserDto dto, CancellationToken ct = default)
     {
         var userName = dto.UserName.Trim();

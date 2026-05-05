@@ -13,6 +13,14 @@ public class UserController(
     UserService userService,
     ContractMapper contractMapper) : ControllerBase
 {
+    [HttpGet]
+    public async Task<ActionResult<List<UserContract>>> GetAll(CancellationToken ct)
+    {
+        var users = await userService.GetAllAsync(ct);
+
+        return Ok(users.Select(contractMapper.MapUser).ToList());
+    }
+
     [HttpPost]
     public async Task<ActionResult<UserContract>> Create([FromBody] CreateUserDto dto, CancellationToken ct)
     {
