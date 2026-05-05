@@ -1,0 +1,142 @@
+<main class="agent-shell">
+  <section class="agent-panel">
+    <div class="agent-intro">
+      <p class="eyebrow">Agent Workflow</p>
+      <h1>AI agent indítása</h1>
+      <p class="subtitle">
+        Add meg az AI API kulcsot és a workflow leírását. A rendszer ezeket kiegészíti a
+        rögzített végrehajtási szabályokkal, majd ezek alapján több egymásra épülő API műveletet is
+        meg tud tervezni.
+      </p>
+    </div>
+
+    @if (runResult(); as result) {
+      <section class="final-result-panel">
+        <p class="final-result-eyebrow">Végső kimenet</p>
+        <h2>Felhasználóbarát eredmény</h2>
+        <div class="final-result">
+          <p>{{ result.finalResult }}</p>
+        </div>
+      </section>
+    }
+
+    <form class="agent-form" [formGroup]="workflowForm" (ngSubmit)="submit()">
+      <label class="field">
+        <span>Groq API kulcs</span>
+        <p class="field-hint">
+          Ingyenes kulcs igénylés:
+          <a href="https://console.groq.com/home" target="_blank" rel="noreferrer">
+            https://console.groq.com/home
+          </a>
+        </p>
+        <input
+          type="password"
+          formControlName="apiKey"
+          autocomplete="off"
+          placeholder="Add meg a Groq API kulcsodat"
+        />
+      </label>
+      @if (workflowForm.controls.apiKey.invalid && workflowForm.controls.apiKey.touched) {
+        <p class="field-error">Az API kulcs megadása kötelező.</p>
+      }
+
+      <label class="field">
+        <span>Workflow leírás</span>
+        <textarea
+          formControlName="workflowDescription"
+          rows="8"
+          placeholder="Írd le természetes nyelven, hogy az agent milyen feladatot végezzen el."
+        ></textarea>
+      </label>
+      @if (
+        workflowForm.controls.workflowDescription.invalid &&
+        workflowForm.controls.workflowDescription.touched
+      ) {
+        <p class="field-error">A workflow leírás legyen legalább 12 karakter.</p>
+      }
+
+      <button type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Futtatás...' : 'Agent futtatása' }}
+      </button>
+
+      <label class="field">
+        <span>Ügyintézői jegyzet</span>
+        <p class="field-hint">Ez csak helyi jegyzet, nem kerül elküldésre az agentnek.</p>
+        <textarea
+          formControlName="clerkNote"
+          rows="4"
+          placeholder="Ide írhatsz belső megjegyzéseket, emlékeztetőket vagy teendőket."
+        ></textarea>
+      </label>
+    </form>
+
+    <section class="rules-panel">
+      <h2>Prompt katalógus</h2>
+      @for (prompt of promptCatalog; track prompt.key) {
+        <div class="prompt-panel">
+          <p class="prompt-title">{{ prompt.title }}</p>
+          <pre>{{ prompt.content }}</pre>
+        </div>
+      }
+    </section>
+
+    <section class="rules-panel">
+      <h2>Beépített szabályok</h2>
+      <ul>
+        @for (rule of agentRules; track rule) {
+          <li>{{ rule }}</li>
+        }
+      </ul>
+    </section>
+
+    @if (errorMessage()) {
+      <section class="preview-panel preview-error">
+        <h2>Hiba</h2>
+        <p>{{ errorMessage() }}</p>
+      </section>
+    }
+
+    @if (runResult(); as result) {
+      <section class="preview-panel">
+        <div class="preview-block">
+          <p><strong>Aktív domain blokkok:</strong></p>
+          <pre>{{ result.activeDomains.join(', ') }}</pre>
+        </div>
+
+        <div class="preview-block">
+          <p><strong>Elküldött prompt szelet:</strong></p>
+          <pre>{{ result.activePrompt }}</pre>
+        </div>
+
+        <div class="preview-block">
+          <p><strong>Elküldött OpenAPI szelet:</strong></p>
+          <pre>{{ result.specSummary }}</pre>
+        </div>
+
+        <div class="preview-block">
+          <p><strong>Végrehajtott lépések:</strong></p>
+          <pre>{{ result.operationLine }}</pre>
+        </div>
+
+        <div class="preview-block">
+          <p><strong>API végrehajtás eredménye:</strong></p>
+          <pre>{{ result.executionSummary }}</pre>
+        </div>
+
+        <div class="preview-block">
+          <p><strong>Modell tervezett válasza:</strong></p>
+          <pre>{{ result.rawResponse }}</pre>
+        </div>
+
+        <div class="preview-block">
+          <p><strong>Végrehajtási napló:</strong></p>
+          <ul class="activity-log">
+            @for (item of result.activityLog; track $index) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </div>
+      </section>
+    }
+  </section>
+</main>

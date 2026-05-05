@@ -1,0 +1,243 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.agent-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(21, 128, 61, 0.12), transparent 28%),
+    radial-gradient(circle at left top, rgba(180, 83, 9, 0.12), transparent 24%),
+    linear-gradient(160deg, #f3f0ea 0%, #e7e1d4 48%, #d8d0c2 100%);
+}
+
+.agent-panel {
+  width: min(100%, 52rem);
+  padding: 2rem;
+  border-radius: 1.6rem;
+  background: rgba(255, 252, 247, 0.92);
+  border: 1px solid rgba(93, 64, 55, 0.12);
+  box-shadow: 0 24px 80px rgba(79, 55, 42, 0.16);
+}
+
+.agent-intro h1,
+.final-result-panel h2,
+.rules-panel h2,
+.preview-panel h2 {
+  margin: 0;
+  color: #2f241f;
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  color: #8b5e34;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.agent-intro h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1;
+}
+
+.subtitle {
+  margin: 0.9rem 0 0;
+  color: #6b5b53;
+  line-height: 1.6;
+}
+
+.agent-form,
+.rules-panel,
+.final-result-panel,
+.preview-panel {
+  margin-top: 1.5rem;
+}
+
+.agent-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+  color: #3d3029;
+  font-weight: 600;
+}
+
+.field-hint {
+  margin: -0.1rem 0 0.2rem;
+  color: #6b5b53;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.field-hint a {
+  color: #8b5e34;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.field-hint a:hover {
+  text-decoration: underline;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.95rem 1rem;
+  border: 1px solid #d9c6b0;
+  border-radius: 0.95rem;
+  background: #fffdf9;
+  color: #2f241f;
+  font: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 10rem;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #b45309;
+  box-shadow: 0 0 0 4px rgba(180, 83, 9, 0.12);
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.95rem 1.2rem;
+  background: linear-gradient(135deg, #166534, #3b7a57);
+  color: #fffdf9;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.field-error {
+  margin: -0.1rem 0 0;
+  color: #b91c1c;
+  font-size: 0.92rem;
+}
+
+.rules-panel,
+.final-result-panel,
+.preview-panel {
+  padding: 1.2rem;
+  border-radius: 1.2rem;
+  background: #fffdf9;
+  border: 1px solid #eadfce;
+}
+
+.final-result-panel {
+  padding: 1.4rem;
+  background: linear-gradient(145deg, #fff7ea, #f0e1c8);
+  border: 1px solid #d9bb89;
+  box-shadow: 0 18px 40px rgba(115, 82, 38, 0.12);
+}
+
+.final-result-eyebrow {
+  margin: 0 0 0.45rem;
+  color: #8b5e34;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rules-panel ul,
+.preview-panel ul {
+  margin: 0.9rem 0 0;
+  padding-left: 1.2rem;
+  color: #5f4b40;
+}
+
+.activity-log {
+  margin-top: 0.8rem;
+}
+
+.preview-block + .preview-block {
+  margin-top: 1rem;
+}
+
+.preview-block p {
+  margin: 0;
+  color: #4b3a31;
+  line-height: 1.6;
+}
+
+.preview-error {
+  border-color: #f3b3b3;
+  background: #fff4f4;
+}
+
+.final-result {
+  margin-top: 1rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 1rem;
+  background: rgba(255, 253, 249, 0.78);
+  border: 1px solid rgba(171, 123, 53, 0.28);
+}
+
+.final-result p {
+  margin: 0;
+  color: #2f241f;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  font-weight: 700;
+}
+
+.preview-block pre {
+  margin: 0.8rem 0 0;
+  padding: 0.9rem;
+  border-radius: 0.9rem;
+  background: #f5eee5;
+  color: #4b3a31;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.prompt-panel pre {
+  margin: 0.9rem 0 0;
+  padding: 1rem;
+  border-radius: 0.9rem;
+  background: #f5eee5;
+  color: #4b3a31;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 24rem;
+  overflow: auto;
+}
+
+.prompt-title {
+  margin: 0.9rem 0 0;
+  color: #4b3a31;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .agent-shell {
+    padding: 1rem;
+  }
+
+  .agent-panel {
+    padding: 1.5rem;
+  }
+}
