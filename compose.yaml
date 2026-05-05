@@ -1,23 +1,17 @@
 ﻿services:
   docsystem:
-    image: docsystem
-    build:
-      context: .
-      dockerfile: DocSystem/Dockerfile
+    image: iaemndor/docsystem-server
     depends_on:
       - db
       - seq
     ports:
       - "5207:8080"
     environment:
-      ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=doc;Username=doc;Password=doc
+      ConnectionStrings__DefaultConnection: ${DB}
       Seq__ServerUrl: http://seq:5341
 
   web:
-    image: web
-    build:
-      context: .
-      dockerfile: web/Dockerfile
+    image: iaemndor/docsystem-web
     depends_on:
       - docsystem
     ports:
@@ -28,9 +22,9 @@
     container_name: postgres-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: doc
-      POSTGRES_PASSWORD: doc
-      POSTGRES_DB: doc
+      POSTGRES_USER: ${DBUSR}
+      POSTGRES_PASSWORD: ${DBPSWD}
+      POSTGRES_DB: ${DBINSTANCE}
     ports:
       - "5432:5432"
     volumes:
